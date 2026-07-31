@@ -26,16 +26,16 @@ async function bootstrap() {
           toastOptions={{
             duration: 4000,
             style: {
-              background: '#13152a',
-              color: '#f1f5f9',
-              border: '1px solid rgba(255,255,255,0.07)',
+              background: 'var(--color-bg-card)',
+              color: 'var(--color-text-primary)',
+              border: '1px solid var(--color-border)',
               borderRadius: '10px',
               fontSize: '0.875rem',
               padding: '12px 16px',
-              boxShadow: '0 8px 32px rgba(0,0,0,0.5)',
+              boxShadow: 'var(--shadow-lg)',
             },
-            success: { iconTheme: { primary: '#10b981', secondary: '#13152a' } },
-            error:   { iconTheme: { primary: '#ef4444', secondary: '#13152a' } },
+            success: { iconTheme: { primary: 'var(--color-success)', secondary: 'var(--color-bg-card)' } },
+            error:   { iconTheme: { primary: 'var(--color-danger)', secondary: 'var(--color-bg-card)' } },
           }}
         />
       </BrowserRouter>

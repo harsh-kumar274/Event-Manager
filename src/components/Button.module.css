@@ -3,7 +3,7 @@
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
-  border-radius: var(--radius-md);
+  border-radius: var(--radius-full);
   font-family: var(--font-body);
   font-weight: var(--font-semibold);
   transition: all var(--transition-base);
@@ -52,6 +52,17 @@
   border-color: var(--color-primary-light);
   background: var(--color-bg-glass);
 }
+
+.outline {
+  background: transparent;
+  color: var(--color-primary-light);
+  border: 1.5px solid var(--color-primary-light);
+}
+.outline:hover:not(:disabled) {
+  background: var(--color-primary-glow);
+  transform: translateY(-1px);
+}
+.outline::after { display: none; }
 
 .ghost {
   background: transparent;

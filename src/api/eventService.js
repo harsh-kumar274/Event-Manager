@@ -7,4 +7,5 @@ export const createEvent = (data) => apiClient.post('/events', data);
 export const updateEvent = (id, data) => apiClient.put(`/events/${id}`, data);
 export const cancelEvent = (id) => apiClient.delete(`/events/${id}`);
 export const getCategories = () => apiClient.get('/categories');
+export const getFeaturedEvents = () => apiClient.get('/events/featured');
 export const submitReview = (eventId, data) => apiClient.post(`/events/${eventId}/reviews`, data);

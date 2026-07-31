@@ -4,7 +4,7 @@ import Badge from './Badge.jsx';
 import { format } from 'date-fns';
 
 export default function EventCard({ event }) {
-  const { id, title, bannerUrl, category, venue, location, startTime, price, registeredCount, capacity, status } = event;
+  const { id, title, description, bannerUrl, category, venue, location, startTime, price, registeredCount, capacity, status } = event;
   const soldOut = registeredCount >= capacity;
   const capacityPct = Math.min((registeredCount / capacity) * 100, 100);
 
@@ -12,6 +12,10 @@ export default function EventCard({ event }) {
     try { return format(new Date(startTime), 'EEE, MMM d, yyyy · h:mm a'); }
     catch { return startTime; }
   })();
+
+  const snippet = description
+    ? description.replace(/\\n/g, ' ').replace(/\n/g, ' ').slice(0, 120)
+    : '';
 
   return (
     <Link to={`/events/${id}`} className={styles.card}>
@@ -47,6 +51,8 @@ export default function EventCard({ event }) {
           </span>
         </div>
 
+        {snippet && <p className={styles.description}>{snippet}</p>}
+
         <div className={styles.capacityRow}>
           <div className={styles.capacityBar}>
             <div className={styles.capacityFill} style={{ width: `${capacityPct}%`, background: soldOut ? 'var(--color-danger)' : capacityPct > 80 ? 'var(--color-warning)' : 'var(--color-primary-light)' }} />
@@ -59,3 +65,4 @@ export default function EventCard({ event }) {
     </Link>
   );
 }
+

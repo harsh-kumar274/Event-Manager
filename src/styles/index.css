@@ -109,6 +109,53 @@
   --navbar-height: 70px;
 }
 
+/* ---------- 1b. Light Theme Overrides ---------- */
+[data-theme="light"] {
+  --color-bg-primary: #f8f9fc;
+  --color-bg-secondary: #f0f1f5;
+  --color-bg-card: #ffffff;
+  --color-bg-elevated: #f0f2f5;
+  --color-bg-glass: rgba(255, 255, 255, 0.75);
+
+  --color-primary: #7c3aed;
+  --color-primary-light: #6d28d9;
+  --color-primary-dark: #5b21b6;
+  --color-primary-glow: rgba(124, 58, 237, 0.15);
+
+  --color-accent: #0891b2;
+  --color-accent-light: #06b6d4;
+  --color-accent-glow: rgba(6, 182, 212, 0.15);
+
+  --color-success: #059669;
+  --color-success-bg: rgba(5, 150, 105, 0.1);
+  --color-warning: #d97706;
+  --color-warning-bg: rgba(217, 119, 6, 0.1);
+  --color-danger: #dc2626;
+  --color-danger-bg: rgba(220, 38, 38, 0.08);
+  --color-info: #2563eb;
+  --color-info-bg: rgba(37, 99, 235, 0.08);
+
+  --color-text-primary: #1e293b;
+  --color-text-secondary: #475569;
+  --color-text-muted: #94a3b8;
+  --color-text-inverse: #f8fafc;
+
+  --color-border: rgba(0, 0, 0, 0.08);
+  --color-border-focus: rgba(124, 58, 237, 0.5);
+
+  /* Shadows — lighter for light mode */
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.06);
+  --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.08);
+  --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.1);
+  --shadow-xl: 0 16px 64px rgba(0, 0, 0, 0.12);
+  --shadow-primary: 0 8px 32px rgba(124, 58, 237, 0.18);
+  --shadow-accent: 0 8px 32px rgba(6, 182, 212, 0.12);
+}
+
+html {
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
 /* ---------- 2. Global Reset ---------- */
 *,
 *::before,
@@ -288,6 +335,9 @@ h1, h2, h3, h4, h5, h6 {
   50% { transform: translate(-20px, 30px) scale(0.95); }
   75% { transform: translate(20px, 20px) scale(1.03); }
 }
+
+[data-theme="light"] .bg-orb { opacity: 0.06; }
+[data-theme="light"] .bg-orb-3 { opacity: 0.03; }
 
 /* ---------- 7. Section Titles ---------- */
 .section-eyebrow {

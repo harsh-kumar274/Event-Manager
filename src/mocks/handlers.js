@@ -1,5 +1,6 @@
 import { http, HttpResponse, delay } from 'msw';
 import { users, events, registrations, reviews, categories, metrics } from './data/seed.js';
+import { startOfDay, endOfDay, startOfWeek, endOfWeek, startOfMonth, endOfMonth, isWithinInterval } from 'date-fns';
 
 const BASE = '/api/v1';
 const DELAY = 400;
@@ -84,6 +85,12 @@ export const handlers = [
      EVENTS
   ============================================================ */
 
+  http.get(`${BASE}/events/featured`, async () => {
+    await delay(DELAY);
+    const featured = _events.filter(e => e.status === 'PUBLISHED' && e.featured);
+    return HttpResponse.json({ data: featured });
+  }),
+
   http.get(`${BASE}/events`, async ({ request }) => {
     await delay(DELAY);
     const url = new URL(request.url);
@@ -93,14 +100,52 @@ export const handlers = [
     const category = url.searchParams.get('category');
     const location = url.searchParams.get('location');
     const price = url.searchParams.get('price');
+    const sort = url.searchParams.get('sort') || 'date-asc';
+    const dateFilter = url.searchParams.get('dateFilter');
     const page = parseInt(url.searchParams.get('page') || '1');
     const limit = 9;
 
-    if (keyword) result = result.filter(e => e.title.toLowerCase().includes(keyword.toLowerCase()) || e.description.toLowerCase().includes(keyword.toLowerCase()));
-    if (category && category !== 'all') result = result.filter(e => e.category.toLowerCase() === category.toLowerCase());
+    if (keyword) {
+      const kw = keyword.toLowerCase();
+      result = result.filter(e =>
+        e.title.toLowerCase().includes(kw) ||
+        e.description.toLowerCase().includes(kw) ||
+        e.location.toLowerCase().includes(kw)
+      );
+    }
+    if (category && category !== 'all') {
+      const cats = category.split(',').map(c => c.trim().toLowerCase());
+      result = result.filter(e => cats.includes(e.category.toLowerCase()));
+    }
     if (location && location !== 'all') result = result.filter(e => e.location.toLowerCase().includes(location.toLowerCase()));
     if (price === 'free') result = result.filter(e => e.price === 0);
     if (price === 'paid') result = result.filter(e => e.price > 0);
+
+    // Date filter
+    if (dateFilter && dateFilter !== 'all') {
+      const now = new Date();
+      let interval;
+      if (dateFilter === 'today') {
+        interval = { start: startOfDay(now), end: endOfDay(now) };
+      } else if (dateFilter === 'this-week') {
+        interval = { start: startOfWeek(now, { weekStartsOn: 1 }), end: endOfWeek(now, { weekStartsOn: 1 }) };
+      } else if (dateFilter === 'this-month') {
+        interval = { start: startOfMonth(now), end: endOfMonth(now) };
+      }
+      if (interval) {
+        result = result.filter(e => {
+          const eventDate = new Date(e.startTime);
+          return isWithinInterval(eventDate, interval);
+        });
+      }
+    }
+
+    // Sort
+    result = [...result];
+    if (sort === 'date-asc') result.sort((a, b) => new Date(a.startTime) - new Date(b.startTime));
+    else if (sort === 'date-desc') result.sort((a, b) => new Date(b.startTime) - new Date(a.startTime));
+    else if (sort === 'name-asc') result.sort((a, b) => a.title.localeCompare(b.title));
+    else if (sort === 'popularity') result.sort((a, b) => b.registeredCount - a.registeredCount);
 
     const total = result.length;
     const totalPages = Math.ceil(total / limit);
