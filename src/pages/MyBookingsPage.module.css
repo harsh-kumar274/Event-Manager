@@ -1,0 +1,50 @@
+.page { background:var(--color-bg-primary); }
+.pageHeader { padding:var(--space-10) 0 var(--space-8); }
+.pageTitle { font-family:var(--font-display); font-size:var(--text-4xl); font-weight:var(--font-extrabold); color:var(--color-text-primary); margin-top:var(--space-2); }
+.pageSub { color:var(--color-text-muted); font-size:var(--text-sm); margin-top:var(--space-1); }
+.loadingCenter { display:flex; justify-content:center; padding:var(--space-20); }
+
+.empty { display:flex; flex-direction:column; align-items:center; gap:var(--space-5); padding:var(--space-20); text-align:center; }
+.emptyIcon { font-size:4rem; }
+.empty h2 { font-size:var(--text-2xl); color:var(--color-text-primary); }
+.empty p { color:var(--color-text-muted); }
+
+.bookingsList { display:flex; flex-direction:column; gap:var(--space-5); padding-bottom:var(--space-16); }
+.bookingCard {
+  display:flex; align-items:center; gap:var(--space-6);
+  background:var(--color-bg-card); border:1px solid var(--color-border);
+  border-radius:var(--radius-xl); padding:var(--space-5);
+  transition:all var(--transition-base);
+}
+.bookingCard:hover { border-color:rgba(124,58,237,0.3); transform:translateY(-2px); }
+.bookingImg { width:100px; height:70px; border-radius:var(--radius-md); overflow:hidden; flex-shrink:0; background:var(--color-bg-elevated); }
+.bookingImg img { width:100%; height:100%; object-fit:cover; }
+.bookingInfo { flex:1; min-width:0; }
+.bookingTop { display:flex; align-items:center; gap:var(--space-3); margin-bottom:var(--space-2); }
+.refCode { font-size:var(--text-xs); color:var(--color-text-muted); font-family:monospace; }
+.bookingTitle { font-size:var(--text-base); font-weight:var(--font-semibold); color:var(--color-text-primary); margin-bottom:var(--space-2); }
+.bookingTitle a { color:inherit; text-decoration:none; transition:color var(--transition-fast); }
+.bookingTitle a:hover { color:var(--color-primary-light); }
+.bookingMeta { display:flex; flex-wrap:wrap; gap:var(--space-4); font-size:var(--text-xs); color:var(--color-text-muted); }
+.bookingActions { display:flex; flex-direction:column; gap:var(--space-2); flex-shrink:0; }
+
+/* E-Ticket */
+.eTicket { display:flex; flex-direction:column; align-items:center; gap:var(--space-4); }
+.eTicketHeader { display:flex; justify-content:space-between; width:100%; }
+.eTicketLogo { font-family:var(--font-display); font-weight:var(--font-bold); color:var(--color-primary-light); }
+.eTicketEvent { font-family:var(--font-display); font-size:var(--text-xl); font-weight:var(--font-bold); color:var(--color-text-primary); text-align:center; }
+.eTicketDate,.eTicketLocation { font-size:var(--text-sm); color:var(--color-text-muted); }
+.eTicketQR { padding:var(--space-5); background:var(--color-bg-elevated); border-radius:var(--radius-lg); border:1px solid var(--color-border); }
+.eTicketRef { font-family:monospace; font-size:var(--text-sm); font-weight:var(--font-bold); color:var(--color-primary-light); letter-spacing:0.1em; }
+.eTicketDivider { display:flex; align-items:center; width:100%; }
+.eTicketDividerCircle { width:16px; height:16px; border-radius:50%; background:var(--color-bg-primary); flex-shrink:0; }
+.eTicketDividerLine { flex:1; border-top:2px dashed var(--color-border); }
+.eTicketFooter { display:flex; justify-content:space-around; width:100%; }
+.eTicketFooter div { display:flex; flex-direction:column; align-items:center; gap:var(--space-1); font-size:var(--text-sm); color:var(--color-text-muted); }
+.eTicketFooter strong { font-size:var(--text-base); color:var(--color-text-primary); }
+
+@media (max-width:640px) {
+  .bookingCard { flex-direction:column; align-items:flex-start; }
+  .bookingImg { width:100%; height:140px; }
+  .bookingActions { flex-direction:row; width:100%; }
+}
