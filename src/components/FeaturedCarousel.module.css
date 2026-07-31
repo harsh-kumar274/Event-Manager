@@ -71,6 +71,7 @@
   cursor: pointer;
   transition: all var(--transition-base);
   border: 1px solid var(--color-border);
+  animation: idle-float 4s ease-in-out infinite;
 }
 
 .card:hover {
