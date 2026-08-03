@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+
+metadata:
+  name: event-manager
+
+spec:
+  replicas: 1
+
+  selector:
+    matchLabels:
+      app: event-manager
+
+  template:
+    metadata:
+      labels:
+        app: event-manager
+
+    spec:
+      containers:
+        - name: event-manager
+
+          image: itsmeharry07/event-manager:v3
+
+          imagePullPolicy: Always
+
+          ports:
+            - containerPort: 5173
